@@ -21,8 +21,7 @@ go through each url in ct_list and:
 
 {status: "Recruiting", "Unknown", "Active, not recruiting", "Completed", "Recruiting",
 "Not yet recruiting"}
-"""
-"""
+
 Because each search results page returns 20 results, 
 ct_list will only contain 20 objects. After iterating through 
 the ct_list, the program must navigate to the next page of 
@@ -42,7 +41,7 @@ import re
 def getRecruitmentStatus():
 	term = raw_input('Please type a disease name:')
 	base_url = "https://clinicaltrials.gov"
-	brca_xml = requests.get("https://clinicaltrials.gov/ct2/results?term=+&Search=Search".format(term)).text
+	brca_xml = requests.get("https://clinicaltrials.gov/ct2/results?term={0}+&Search=Search".format(term)).text
 	brca_soup = BeautifulSoup(brca_xml, 'lxml')
 	a_tags = brca_soup.find_all('a')
 	ct_list = list()
