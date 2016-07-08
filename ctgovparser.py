@@ -39,7 +39,7 @@ import re
 #Remaining tasks: define the function. 
 #Problem: inserting value of "disease" into the relative URL. 
 def getRecruitmentStatus():
-	term = raw_input('Please type a disease name:')
+	term = raw_input('Please type a disease name: ')
 	base_url = "https://clinicaltrials.gov"
 	brca_xml = requests.get("https://clinicaltrials.gov/ct2/results?term={0}+&Search=Search".format(term)).text
 	brca_soup = BeautifulSoup(brca_xml, 'lxml')
@@ -50,11 +50,12 @@ def getRecruitmentStatus():
 			ct_list.append(base_url + x['href'])
 		else: 
 			continue
-	return ct_list
+	#return ct_list
 	recruiting = {}
 	not_recruiting = {}
 	unknown_recruiting_status = {}
 	for trial in ct_list:
+		print trial
 		trial_url = requests.get(trial).text
 		trial_soup = BeautifulSoup(trial_url, 'lxml')
 		if trial_soup.find('div', 'not-recruiting-status'):
@@ -65,9 +66,9 @@ def getRecruitmentStatus():
 			unknown_recruiting_status[trial] = str(trial_soup.find('div', 'unknown-recruiting-status').contents[0]).rstrip()
 		else: 
 			print "no recruitment text found"
-	return not_recruiting
-	return recruiting
-	return unknown_recruiting_status
+	#return not_recruiting
+	#return recruiting
+	#return unknown_recruiting_status
 
 	print "There are", len(recruiting), "trials that are recruiting currently!"
 	print "There are", len(not_recruiting), "trials that are NOT recuriting"
